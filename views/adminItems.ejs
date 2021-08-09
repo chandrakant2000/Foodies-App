@@ -1,0 +1,232 @@
+<%- include('partials/headerAdmin'); -%>
+
+<div class="p-3 m-3 border rounded" style="background-color: white; box-shadow: 0px 0px 5px grey;">
+    <div class="border-bottom px-2 pt-2 mb-4">
+        <h3 class="pb-2 d-inline-block"><i class="fas fa-utensils"></i> Items</h3>
+        <button class="btn btn-primary btn-sm float-right" id="addNewCategory">Add new Category</button>
+        <button class="btn btn-primary btn-sm float-right mr-3" id="removeCategory">remove Category</button>
+    </div>
+    
+    <% if(errorMessage != "") { %>
+        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+            <strong> <%= errorMessage %></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
+
+    <% if(successMessage != "") { %>
+        <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+            <strong> <%= successMessage %></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
+
+    <!-- New Category Form  -->
+    <div class="border rounded py-3 px-2 my-4 bg-light" style="box-shadow: 0px 0px 2px grey; display: none;" id="add-new-category">
+
+        <form class="needs-validation" id="new-category-form" action="/newCategory" method="POST" autocomplete="off" novalidate>
+            <div class="form-row">
+                <div class="col-sm-6 mb-3">
+                    <label for="item-name" class="font-weight-bold">Category name</label>
+                    <input type="text" name="categoryName" class="form-control" id="item-name" placeholder="Category Name" required>
+                    <div class="invalid-feedback">
+                        Category name required
+                    </div>
+                </div>
+                <div class="col-sm-3 mb-3">
+                    <label for="size1" class="font-weight-bold">Size-1</label>
+                    <input type="text" name="size1" class="form-control" id="size1" placeholder="required" required>
+                    <div class="invalid-feedback">
+                        size-1 required
+                    </div>
+                </div>  
+                <div class="col-sm-3 mb-3">
+                    <label for="size2" class="font-weight-bold">Size-2</label>
+                    <input type="text" name="size2" class="form-control" id="size2" placeholder="required" required>
+                    <div class="invalid-feedback">
+                        size-2 required
+                    </div>
+                </div>                                      
+            </div>
+            <div class="form-row">
+                <div class="col-sm-3 mb-3">
+                    <label for="size3" class="font-weight-bold">Size-3</label>
+                    <input type="text" name="size3" class="form-control" id="size3" placeholder="Optional">
+                </div>
+                <div class="col-sm-3 mb-3">
+                    <label for="size4" class="font-weight-bold">Size-4</label>
+                    <input type="text" name="size4" class="form-control" id="size4" placeholder="optional">
+                </div>  
+                <div class="col-sm-3 mb-3">
+                    <label for="size5" class="font-weight-bold">Size-5</label>
+                    <input type="text" name="size5" class="form-control" id="size5" placeholder="optional">
+                </div>
+                <div class="col-sm-3 mb-3">
+                    <label for="add" class="font-weight-bold">Add category</label>
+                    <input type="submit" class="form-control btn btn-primary" id="add" placeholder="Add Category">
+                </div>                                      
+            </div>
+        </form> 
+    </div>
+
+    <!-- Remove existing category form  -->
+    <div class="border rounded py-3 px-2 my-4 bg-light" style="box-shadow: 0px 0px 2px grey; display: none;" id="remove-category">
+
+        <form class="needs-validation bg-light" id="remove-category-form" action="/removeCategory" method="POST" autocomplete="off" novalidate>
+            <div class="form-row">
+                <div class="col-sm-8 mb-3">
+                    <label for="category-name" class="font-weight-bold">Category name</label>
+                    <input type="text" name="categoryName" class="form-control" id="category-name" placeholder="Category Name" required>
+                    <div class="invalid-feedback">
+                        Category name required
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label for="remove" class="font-weight-bold">Remove category</label>
+                    <input type="submit" class="form-control btn btn-primary" id="remove" placeholder="Remove Category">
+                </div>                              
+            </div>
+        </form>  
+    </div>
+
+
+    <!-- Show Each Category  -->
+    <% itemsArray.forEach(function(item, index) { %>
+        <div class="table-responsive"> 
+            <table class="table table-striped mb-5">
+                <caption style="caption-side: top; text-align: center" class="h3 text-dark pb-0">
+                    <%= item.menuCategory %>
+                    <a class="btn btn-primary btn-sm ml-3" data-toggle="collapse" href="#collapse-<%= item.menuCategory %>" 
+                    id="button-<%= item.menuCategory %>" role="button">click here to Collapse & Expand</a>
+                </caption>
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Update Price</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Remove Item</th>
+                    </tr>
+                </thead>
+                <tbody id="collapse-<%= item.menuCategory %>" class="collapse">
+                    <% item.menuItems.forEach(function(menuItem, menuIndex) { %>
+                        <tr>
+                            <th scope="row"><%= menuIndex+1 %></th>
+                            <td><%= menuItem.dishName %></td>
+                            <td><i class="fas fa-rupee-sign"></i><%= menuItem.price %></td>
+                            <td>                          
+                                <button class="btn btn-sm btn-info" role="button" data-html="true" data-toggle="popover" data-content=
+                                '<form method="post" action="/updatePrice" class="p-2 bg-warning d-flex rounded">
+                                        <input type="number" name="price" class="form-control justify-content-center" placeholder="New price" required>
+                                        <input type="hidden" name="itemID" value="<%= menuItem._id %>">
+                                        <input type="hidden" name="categoryID" value="<%= item._id %>">                                    
+                                        <input type="submit" class="btn btn-sm btn-success ml-3" value="Update">
+                                    </form>'                                    
+                                    data-placement="bottom" >Update</button>
+                            </td>
+                            <td><%= menuItem.size %></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" role="button" data-html="true" data-toggle="popover" title="Are you sure?" data-content=
+                                    '<p class="mb-2">All sizes of given Item will be deleted.</p>
+                                     <p> You will not be able to recover this item! </p>
+                                    <form method="post" action="/removeItem" class="p-2 d-flex rounded">
+                                        <input type="hidden" name="itemName" value="<%= menuItem.dishName %>">
+                                        <input type="hidden" name="categoryID" value="<%= item._id %>">                                    
+                                        <input type="submit" class="btn btn-sm btn-danger mx-auto" value="Yes, delete it!">
+                                    </form>'                                    
+                                    data-placement="right" >Delete Item</button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button type="text" class="btn btn-primary" id="menu-item-<%= item.menuCategory %>">Add Item</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add removed content here  -->
+
+        <!-- TRIAL SECTION STARTS -->
+
+        <div class="border rounded py-3 px-2 mb-5 bg-light" style="box-shadow: 0px 0px 2px grey; display: none;" id="add-item-<%= item.menuCategory %>">
+            <!-- Form  -->
+            <form action="/addItem" class="needs-validation" id="new-item-<%= item.menuCategory %>" method="POST" novalidate>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3 px-2">
+                        <label for="item-name" class="font-weight-bold"> Item name</label>
+                        <input type="text" name="itemName" class="form-control" id="item-name" placeholder="Item Name" required>
+                        <div class="invalid-feedback">
+                            Item name required
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3 px-3">
+                        <label class="font-weight-bold">Size</label>
+                        <div class="form-row">
+                            <% item.sizes.forEach(function(size) { %>
+                                <input type="text" name="Size" class="form-control mb-2" value="<%= size %>" readonly>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 px-3">
+                        <label class="font-weight-bold">Price</label>
+                        <div class="form-row">
+                            <% item.sizes.forEach(function(size) { %>
+                                <input type="number" name="Price" class="form-control mb-2" placeholder="Price for <%= size %> size" required>
+                                <div class="invalid-feedback">
+                                    Price value required
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>                                        
+                </div>
+                <input type="hidden" name="category" value="<%= item.menuCategory %>">
+                <div class="text-right mr-3">
+                    <button class="btn btn-primary mx-auto px-3" type="submit" id="add-new-item-<%= item.menuCategory %>" onClick="refreshPage()">Add</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TRIAL SECTION ENDS  -->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#menu-item-<%= item.menuCategory %>").click(function () {
+                    $("#add-item-<%= item.menuCategory %>").fadeToggle("slow", "linear");
+                });
+
+                $("#button-<%= item.menuCategory %>").click(function() {
+                    if($('#collapse-<%= item.menuCategory %>').hasClass('collapse')) {
+                        $('#collapse-<%= item.menuCategory %>').removeClass('collapse');
+                    } else {
+                        $('#collapse-<%= item.menuCategory %>').addClass('collapse');
+                    }
+                });                
+            });
+
+            $(function() {
+            $('#new-item-<%= item.menuCategory %>').on('submit', function(e) {
+                if(this.checkValidity() == false) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $(this).addClass("was-validated");
+                 }
+            });
+        });
+        </script>
+    <% }) %>
+                    
+</div>
+    
+
+<%- include('partials/footerAdmin'); -%>

@@ -1,0 +1,68 @@
+<%- include('partials/headerAdmin'); -%>
+
+<!-- Recent Orders  -->
+<div class="p-2 m-3 border rounded" style="background-color: white; box-shadow: 0px 0px 5px grey;">
+    <div class="border-bottom px-2 pt-2 mb-4">
+        <h3 class="pb-2 d-inline-block"><i class="fas fa-shopping-cart"></i> Incoming Orders</h3>
+    </div>
+    <div class="table-responsive"> 
+        <table class="table table-striped mb-5">            
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">order #</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Items</th> 
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead> 
+            <tbody>
+                <% orders.forEach(function(order){ %>
+                    <% if(order.status === "") { %>
+                    <tr>
+                        <th scope="row"><%= order.orderID %></th>
+                        <td><%= order.user.email %></td>
+                        <td>
+                            <table class="table table-nostriped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">size</th>
+                                        <th scope="col">qty</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% order.item.forEach(function(Item, ItemIndex){ %>
+                                        <tr>
+                                            <td><%= ItemIndex + 1 %>. <%= Item.itemName %></td>
+                                            <td><%= Item.size %></td>
+                                            <td><%= Item.quantity %></td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>&#8377;<%= order.total %></td>
+                        <td>
+                            <form action="/orderStatus" method="POST">
+                                <input type="hidden" name="orderID" value="<%= order._id %>">
+                                <input type="hidden" name="orderNo" value="<%= order.orderID %>">
+                                <input type="hidden" name="totalPrice" value="<%= order.total %>">
+                                <input type="hidden" name="personID" value="<%= order.user.userID %>">
+                                <input type="submit" class="btn btn-success btn-sm" name="status" value="accept">
+                                <br>
+                                <input type="submit" class="btn btn-danger btn-sm mt-4" name="status" value="cancel">
+                            </form>
+                        </td>
+                        <td><%= order.date %></td>
+                    </tr>
+                    <% } %>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<%- include('partials/footerAdmin'); -%>

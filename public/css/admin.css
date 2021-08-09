@@ -1,0 +1,41 @@
+.border-bottom {
+  position: relative;
+  border-bottom: 3px solid #eee;
+}
+
+.border-bottom:before {
+  position: absolute;
+  background: #ffa500;
+  height: 3px;
+  content: "";
+  width: 100%;
+  bottom: -3px;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+ul li a {
+  color: #333;
+  background-color: #ffa500;
+}
+
+
+ul li a:hover {
+  color: #333;
+}
+
+
+ul li a:active {
+  background-color: white;
+}
+
+.table-nostriped tbody tr:nth-of-type(odd) {
+  background-color:transparent;
+}
+
+.minHeight {
+    min-height: 100vh;
+}

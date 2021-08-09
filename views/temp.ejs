@@ -1,0 +1,33 @@
+<div class="border rounded py-3 px-2 mb-5" style="box-shadow: 0px 0px 2px grey; display: none;" id="add-item-<%= item.menuCategory %>">
+            <!-- Form  -->
+            <form action="/addItem" class="needs-validation" id="new-item-<%= item.menuCategory %>" method="POST" novalidate>
+                <div class="form-row">
+                    <div class="col-sm-7 mb-3">
+                        <label for="item-name" class="font-weight-bold">Item name</label>
+                        <input type="text" name="itemName" class="form-control" id="item-name" placeholder="Item Name" required>
+                        <div class="invalid-feedback">
+                            Item name required
+                        </div>
+                    </div>
+                    <div class="col-sm-3 mb-3">
+                        <label for="size" class="font-weight-bold">Size</label>
+                        <select name="size" class="custom-select" id="size" required>
+                            <% item.sizes.forEach(function(size) { %>
+                                <option value="<%= size %>"><%= size %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 mb-3">
+                        <label for="price" class="font-weight-bold">Price</label>
+                        <input type="number" name="price" class="form-control" id="price" placeholder="Price" required>
+                        <div class="invalid-feedback">
+                            Price value required
+                        </div>
+                    </div>                                        
+                </div>
+                <input type="hidden" name="category" value="<%= item.menuCategory %>">
+                <div class="text-right mr-3">
+                    <button class="btn btn-primary mx-auto px-3" type="submit" id="add-new-item-<%= item.menuCategory %>" onClick="refreshPage()">Add</button>
+                </div>
+            </form>
+        </div>

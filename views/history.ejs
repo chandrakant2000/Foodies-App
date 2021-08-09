@@ -1,0 +1,77 @@
+<%- include('partials/header', {cartLength: cartLength, pendingOrders: pendingOrders}); -%>
+
+    <div class="container-fluid my-5 Font paddingX" style="min-height: 78vh;">
+        <h1>Order history</h1>
+        <div class="bg-light text-center p-3">
+
+            <% if(orderHistory.length == 0) { %>
+                <h3 class="mb-4 mt-3">Empty</h3>
+            <% } else { %>
+                <% for (let i=orderHistory.length - 1; i >= 0 ; i--) { %>
+                    <div class="col p-3">
+                        <div class="row pb-1 borderBottom">
+                            <div class="col-4 mt-1">
+                                <p class="mb-0" style="font-weight: 600">Order #<%= orderHistory[i].orderNo %> by <%= userFullName %></p>
+                                <p class="mb-0"> <%= orderHistory[i].orderDate %> </p>
+                                <% if(orderHistory[i].status === "accept") { %>
+                                    <p class="mb-2 mt-1"> <span class="p-1 rounded bg-success text-light">successful</span> </p>
+                                <% } else { %>
+                                    <p class="mb-2 mt-1"> <span class="p-1 rounded bg-danger text-light">cancelled</span> </p>
+                                <% } %>
+                            </div>
+                            <div class="table-responsive col-8"> 
+                                <table class="table table-striped mb-3">            
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Item #</th>
+                                            <th scope="col">Item</th>
+                                            <th scope="col">Size</th> 
+                                            <th scope="col">Qty</th>
+                                            <th scope="col">Price per Item</th>
+                                        </tr>
+                                    </thead> 
+                                    <tbody>
+                                        <% for (let j=0; j < orderHistory[i].orderedItems.length; j++) { %>
+                                            <tr>
+                                                <td><b><%= j+1 %>.</b></td>
+                                                <td><%= orderHistory[i].orderedItems[j].itemName %></td>
+                                                <td><%= orderHistory[i].orderedItems[j].size %></td>
+                                                <td><%= orderHistory[i].orderedItems[j].quantity %></td>
+                                                <td>&#8377;<%= orderHistory[i].orderedItems[j].price %></td>
+                                            </tr>
+                                        <% } %>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <span style="border-top: 2px solid black;"><b>&#8377;<%= orderHistory[i].totalPrice %></b></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+
+                <% } %>
+            <% } %>
+
+            <div class="my-1">
+                <form action="/clearUserOrderHistory" method="POST">
+                    <input type="hidden" name="userID" value="<%= userID %>">
+                    <% if(orderHistory.length == 0) { %>
+                        <button type="submit" class="btn btn-danger" disabled>Clear History</button>
+                    <% } else { %>
+                        <button type="submit" class="btn btn-danger">Clear History</button>
+                    <% } %>
+                </form>
+            </div>
+
+            
+
+        </div>
+    </div>
+
+<%- include('partials/footer'); -%>

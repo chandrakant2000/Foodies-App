@@ -1,0 +1,97 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Forgot Password</title>
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/logo.png">
+
+    <style> 
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="css/forgot.css" rel="stylesheet">
+  </head>
+  <body>
+    
+
+    <form action="/forgot" method="POST" id="forgotPasswordform" class="form-signin forgot-needs-validation" novalidate>
+
+        <% if(successMessage) { %>
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            An e-mail has been sent to <strong><%= successMessage %></strong> with further instructions.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+
+        <% if(errorMessage) { %>
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            <%= errorMessage %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+
+        <% if(sessionExpiredMessage) { %>
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            <%= sessionExpiredMessage %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+
+        <div class="text-center mb-4">
+            <img class="mb-4" src="images/forgot.png" alt="Foodies Logo">
+            <h1 class="h3 mb-3 font-weight-normal">Forgot Password</h1>
+        </div>
+
+        <div class="form-label-group">
+            <input type="email" name="username" id="email" class="form-control" placeholder="Email address" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" required autofocus>
+            <label for="email">Email address</label>
+            <div class="invalid-feedback p-2" style="font-size: 90%;">
+                Please include a valid email address containing @ and .
+            </div>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Reset Password</button>
+
+        <div class="mt-3 text-center" style="font-size: 1.1rem;">
+            <a href="/">Back to Home Page</a>
+        </div>
+
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2021, All rights reserved</p>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="javaScript/forgotPassword.js"></script>
+    
+  </body>
+</html>
+
+

@@ -1,0 +1,68 @@
+<%- include('partials/header', {cartLength: cartLength, pendingOrders: pendingOrders}); -%>
+
+    <div class="container-fluid my-5 Font paddingX" style="min-height: 78vh;">
+        <h1>Pending Orders</h1>
+        <div class="bg-light text-center p-3">
+            <% if(orderStatus != "") { %>
+                <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+                    <strong><%= orderStatus %></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <% } %>
+
+            <% if(PendingOrders.length == 0) { %>
+                <h3 class="mb-4 mt-3">Empty</h3>
+            <% } else { %>
+                <% for (let i=0; i < PendingOrders.length ; i++) { %>
+                    <div class="col p-3">
+                        <div class="row pb-1 borderBottom">
+                            <div class="col-4 mt-1">
+                                <p class="mb-0" style="font-weight: 600">Order #<%= PendingOrders[i].orderNo %> by <%= userFullName %></p>
+                                <p class="mb-0"> <%= PendingOrders[i].orderDate %> </p>
+                            </div>
+                            <div class="table-responsive col-8"> 
+                                <table class="table table-striped mb-3">            
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Item #</th>
+                                            <th scope="col">Item</th>
+                                            <th scope="col">Size</th> 
+                                            <th scope="col">Qty</th>
+                                            <th scope="col">Price per Item</th>
+                                        </tr>
+                                    </thead> 
+                                    <tbody>
+                                        <% for (let j=0; j < PendingOrders[i].orderedItems.length; j++) { %>
+                                            <tr>
+                                                <td><b><%= j+1 %>.</b></td>
+                                                <td><%= PendingOrders[i].orderedItems[j].itemName %></td>
+                                                <td><%= PendingOrders[i].orderedItems[j].size %></td>
+                                                <td><%= PendingOrders[i].orderedItems[j].quantity %></td>
+                                                <td>&#8377;<%= PendingOrders[i].orderedItems[j].price %></td>
+                                            </tr>
+                                        <% } %>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><span style="border-top: 2px solid black;"> <b>&#8377;<%= PendingOrders[i].totalPrice %></b> </span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>    
+                <% } %>
+            <% } %>
+
+            <div class="my-1">
+                <a href="/menu">Back to Menu</a>
+            </div>          
+
+        </div>
+    </div>
+
+<%- include('partials/footer'); -%>

@@ -1,0 +1,14 @@
+<%- include('partials/header', {cartLength: cartLength, pendingOrders: pendingOrders}); -%>
+
+    <div class="text-center alignCenter px-4">
+        <img src="images/profile.png" alt="Foodies logo" class="img-fluid my-4">
+        <h2 class="textLight my-3">Welcome <%= user.fullName %> </h2>
+        <h2 class="textLight my-3">Contact No: <%= user.phone %> </h2>
+        <h2 class="textLight my-3">Mail id: <%= user.username %> </h2>
+        <form action="/deleteMyAccount" method="POST">
+            <input type="hidden" name="userID" value="<%= user._id %>">
+            <input type="submit" class="my-3 btn btn-lg btn-danger" value="Delete My Account">
+        </form>
+    </div>
+
+<%- include('partials/footer'); -%>

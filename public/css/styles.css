@@ -1,0 +1,110 @@
+/* MAIN PAGE WITH BACKGROUND IMAGE , SIGN IN AND SIGN UP  */
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+    position: relative;
+    text-align: center;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centered h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 7rem;
+}
+
+.centered p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+}
+
+.login {
+    position: absolute;
+    top: 5%;
+    right: 200px;
+}
+
+.signup {
+    position: absolute;
+    top: 5%;
+    right: 100px;
+}
+
+
+@media (max-width: 700px) { .login { right: 150px; }  .signup { right: 50px; } }
+
+@media (min-width: 993px) { .login { right: 250px; }  .signup { right: 150px; } }
+
+@media (max-width: 992px) { .centered h1 { font-size: 11vw; } .centered p { font-size: 3.5vw; } }
+
+@media (max-width: 768px) {
+    .centered {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .text-size { font-size: 1.2rem; }
+    .centered h1 { font-size: 13vw; }
+    .centered p { font-size: 3.5vw; }
+}
+
+@media (min-width: 769px) { .text-size { font-size: 1.3rem; } }
+
+
+/* CAROUSEL SECTION  */
+
+@media (max-width: 768px) { h3 { font-size: 4vw; padding-top: 5px; padding-bottom: 5px; } }
+
+@media (min-width: 767px) { h6 { font-size: 1.3rem; } }
+
+.Rounded {
+    border-radius: 20px;
+}
+
+.background-carousel {
+    background-color: #f8f8f8;
+}
+ 
+.carouselControlIcon {
+    height: 30px;
+    top: 40%;
+    width: 30px;
+    background: rgb(255, 255, 255);
+    opacity: 1;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 5px -1px, rgb(0 0 0 / 14%) 0px 6px 10px 0px, rgb(0 0 0 / 12%) 0px 1px 18px 0px;
+    border-radius: 50%;
+    z-index: 2;    
+    cursor: pointer;
+}
+
+.hover a:active {
+    border: 4px solid black;
+}
+
+/* Below 576px */
+@media (max-width: 576px) { .left{ left:23%; } .right{ right: 23%; } }
+/* Between 576px and 768px */
+@media (min-width: 576px) { .left{ left: 5%; } .right{ right: 5%; } }
+/* Between 768px and 992px */
+@media (min-width: 768px) { .left{ left: 2%; } .right{ right: 2%; } }
+/* Between 992px and 1200px */
+@media (min-width: 992px) { .left{ left: 1%; } .right{ right: 1%; } }
+/* Above 1200px */
+@media (min-width: 1200px) { .left{ left: 3%; } .right{ right: 3%; } }
+
+/* FOOTER SECTION  */
+footer p{
+    border-top: 1px solid #eee;
+}
+
+footer {
+    background-color: #1e81b0;
+}
+
+
