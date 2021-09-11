@@ -203,7 +203,12 @@ router.post("/placeOrder", function(req, res) {
                         total += item.price * item.quantity;
                     });
                     // create a new order and save it in orders collection
-                    const date = new Date().toLocaleDateString(undefined, options);
+                    var currentTime = new Date();
+                    var currentOffset = currentTime.getTimezoneOffset();
+                    var ISTOffset = 330;   // IST offset UTC +5:30 
+                    var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset)*60000);
+
+                    const date = ISTTime.toLocaleDateString(undefined, options);
                     const newOrder = new Order({
                         orderID: orderNo + 1,
                         user: {
@@ -696,6 +701,10 @@ router.post("/removeCategory", function(req, res) {
 
 // HANDLES GET REQUESTS FROM adminHome.ejs, adminOrders.ejs, adminItems.ejs, adminUsers.ejs, adminHistory.ejs 
 router.get("/admin-page/:file", function(req, res) {
+    if(!req.user){
+        res.redirect("/admin");
+    }
+
     const fileToRender = "admin" + _.capitalize(req.params.file) + ".ejs";
     
     if(req.params.file === "items") {

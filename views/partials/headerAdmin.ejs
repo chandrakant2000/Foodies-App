@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- <meta http-equiv="Refresh" Content="60"> -->
-
+ 
     <!-- Favicon  -->
     <link rel="icon" href="images/logo.png"> 
     <!-- Font Awesome  -->
@@ -39,13 +39,29 @@
                 <div class="mt-2 py-2 px-4" style="background-color: white; box-shadow: 0px 3px 5px grey;">
                     <!-- Image and text -->
                     <nav class="navbar navbar-light bg-light">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="/">
                             <img src="images/admin-page.png" class="d-inline-block align-top" alt="Foodies Logo">
                         </a>
-                        <div class="d-inline-block align-right" style="color: #ffa500; font-size: 1.7rem;">
+                        <div class="d-inline-block align-right btn btn-light" style="color: #ffa500; font-size: 1.7rem;" data-toggle="collapse" href="#collapseAdminButton">
                             Admin <i class="fas fa-user-cog"></i>
                         </div>
                     </nav>
+                   
+            
+                    <div class="collapse mt-3 ml-auto mr-0" id="collapseAdminButton" style="right: 0;">
+                        <div class="card card-body">
+                            <a class="btn btn-primary mb-3" href="/">
+                                Foodies Home
+                            </a>
+                            
+                            <form action="/logout" method="GET">
+                                <button class="btn btn-primary w-100" type="submit">Logout</button>
+                            </form>
+                                                  
+                        </div>
+                    </div>
+
+                    
                 </div>
 
                 <div>

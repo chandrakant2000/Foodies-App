@@ -5,10 +5,16 @@
         <h2 class="textLight my-3">Welcome <%= user.fullName %> </h2>
         <h2 class="textLight my-3">Contact No: <%= user.phone %> </h2>
         <h2 class="textLight my-3">Mail id: <%= user.username %> </h2>
+
+        <% if(user.admin){ %>
+            <a class="btn btn-info btn-lg mb-3" href="/admin" >Admin Page</a>
+        <% } %>
+
         <form action="/deleteMyAccount" method="POST">
             <input type="hidden" name="userID" value="<%= user._id %>">
             <input type="submit" class="my-3 btn btn-lg btn-danger" value="Delete My Account">
         </form>
+
     </div>
 
 <%- include('partials/footer'); -%>

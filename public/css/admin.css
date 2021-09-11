@@ -39,3 +39,14 @@ ul li a:active {
 .minHeight {
     min-height: 100vh;
 }
+
+#collapseAdminButton{
+    width: 25%;
+}
+
+@media (max-width: 768px) {
+    #collapseAdminButton{
+        width: 100%;
+    }
+}
+
