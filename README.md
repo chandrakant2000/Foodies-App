@@ -1,6 +1,6 @@
 
 # Foodies Website
-It is a food delivery web application for a restaurant.
+It is a food delivery web application for a specific restaurant where customers can directly place their order.
 <br/>
 <a href="https://chandrakanta-foodies.herokuapp.com/"> See it in action </a> 
 ![f1](https://user-images.githubusercontent.com/69320883/136002017-e97552aa-6e7f-44da-a9d9-54deb76d35f7.JPG)
